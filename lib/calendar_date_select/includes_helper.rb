@@ -34,7 +34,7 @@ module CalendarDateSelect::IncludesHelper
 
   def install_files!
     cds_files = Dir.glob("#{Rails.root}/public/javascripts/calendar_date_select/calendar_date_select*js")
-    #CalendarDateSelect.lib = cds_files.first[/calendar_date_select_([^\/]*)\.js/, 1]
+    CalendarDateSelect.lib = cds_files.first[/calendar_date_select_([^\/]*)\.js/, 1]
 
     return if cds_files.any?
 
