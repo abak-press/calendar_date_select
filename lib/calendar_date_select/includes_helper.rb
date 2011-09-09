@@ -39,8 +39,8 @@ module CalendarDateSelect::IncludesHelper
     return if cds_files.any?
 
     ['/public', '/public/javascripts/calendar_date_select', '/public/stylesheets/calendar_date_select', '/public/images/calendar_date_select', '/public/javascripts/calendar_date_select/locale'].each do |dir|
-      source = File.dirname(__FILE__) + "/../#{dir}"
-      dest   = RAILS_ROOT + dir
+      source = File.dirname(__FILE__) + "/../../#{dir}"
+      dest   = "#{Rails.root}#{dir}"
       FileUtils.mkdir_p(dest)
 
       files = Dir.glob(source + '/*.*')
