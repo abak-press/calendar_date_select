@@ -202,12 +202,12 @@ var _translations = {
 		      
 		      if (!this.options.get("embedded") && !this.closeOnClick())
 		      {
-		    	$("<span>").html("&#160;|&#160;").addClass("button_seperator");
-		    	$("<a>").html(_translations["OK"]).html("#").addClass("button_seperator").click(function() {that.close(); return false;});
+		    	$("<span>").html("&#160;|&#160;").addClass("button_seperator").appendTo(buttons_div);
+		    	$("<a>").html(_translations["OK"]).html("#").addClass("button_seperator").appendTo(buttons_div).click(function() {that.close(); return false;});
 		      }
 		      if (this.options.get('clear_button')) {
-		    	$("<span>").html("&#160;|&#160;").addClass("button_seperator");
-		    	$("<a>").html(_translations["Clear"]).attr('href', "#").click(function() {that.clearDate(); if (!that.options.get("embedded")) that.close(); return false;})
+		    	$("<span>").html("&#160;|&#160;").addClass("button_seperator").appendTo(buttons_div);
+		    	$("<a>").html(_translations["Clear"]).attr('href', "#").appendTo(buttons_div).click(function() {that.clearDate(); if (!that.options.get("embedded")) that.close(); return false;});
 		      }
 		    }
 		  },
@@ -314,11 +314,11 @@ var _translations = {
 		  updateFooter:function(text) { if (!text) text = this.dateString(); this.footer_div.empty().append($("<span>").html(text)); },
 		  clearDate:function() {
 		    if ((this.target_element.disabled || this.target_element.readOnly) && this.options.get("popup") != "force") return false;
-		    var last_value = this.target_element.value;
-		    this.target_element.value = "";
+		    var last_value = this.target_element.val();
+		    this.target_element.val('');
 		    this.clearSelectedClass();
 		    this.updateFooter('&#160;');
-		    if (last_value!=this.target_element.value) this.callback("onchange");
+		    if (last_value!=this.target_element.val()) this.callback("onchange");
 		  },
 		  updateSelectedDate:function(partsOrElement, via_click) {
 		    var parts = $H(partsOrElement);
