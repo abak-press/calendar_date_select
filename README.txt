@@ -10,7 +10,7 @@ http://code.google.com/p/calendardateselect/
 
 == Installation
 * script/plugin install git://github.com/ronald/calendar_date_select.git
-* Branch rails-3.0 is stable for using with jQuery framework
+* If u want to change javascript library use initializers
 
 == Submitting patches
 
