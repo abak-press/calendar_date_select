@@ -258,10 +258,10 @@ var _translations = {
 		    {
 		      this.month_select.val(m);
 		      
-		      var e = this.year_select.element; 
-		      if (this.flexibleYearRange() && (!(this.year_select.val(y)) || e.selectedIndex <= 1 || e.selectedIndex >= e.options.length - 2 )) this.populateYearRange();
+		      var e = this.year_select;
+		      if (this.flexibleYearRange() && (!(e.val(y)) || e.attr('selectedIndex') <= 1 || e.attr('selectedIndex') >= e.attr('options').length - 2 )) this.populateYearRange();
 		      
-		      this.year_select.val(y);
+		      e.val(y);
 		      
 		    } else {
 		      this.month_year_label.update( Date.months[m] + " " + y.toString()  );
