@@ -10,8 +10,7 @@ http://code.google.com/p/calendardateselect/
 
 == Installation
 * script/plugin install git://github.com/ronald/calendar_date_select.git
-* if you're using jrails it should work out of the box
-* otherwise copy calendar_date_select.jquery.js from the plugin's dir to /public/javascripts/calendar_date_select/
+* Branch rails-3.0 is stable for using with jQuery framework
 
 == Submitting patches
 
