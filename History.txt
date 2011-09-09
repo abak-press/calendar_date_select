@@ -1,3 +1,47 @@
+== Version 1.16.3
+* hungarian translation added (raszi)
+* Workaround IE bug (mvastola) 
+
+== Version 1.16.2
+
+* Fixed calendar_date_select's method of firing onChange for its target element. (Ethan)
+* added Czech translation. (deric)
+* Fixed issue #11. (Kevin Triemstra)
+* Fixed rubygems dependency in Rakefile (to fix jeweler load error). (Thilo-Alexander Ginkel)
+
+== Version 1.16.1
+
+* 1.16 was a lemon release.  Sorry!  Deploy script had an error and messed up the code on the way out.
+
+== Version 1.16
+
+* Ability to specify a default time/date if no time/date is selected in the target form element. (Shih-gian Lee)
+
+== Version 1.15.2
+
+* Fix for set date (day must go last) (ujifgc)
+* added logic to wrap image in span tag when there is error fields. (Shih-gian Lee)
+* Initial commit of default time implementation. (Shih-gian Lee)
+* default time implementation in form_helpers.rb. (Shih-gian Lee)
+* Fix calendar_date_select helper for searchlogic compatibility (Andrea Frigido)
+* Added Arabic language translations (Abdul-Jabbar Shalabi)
+* rename instance variable. avoid conflict with name (Cyril Mougel)
+* add translation in french (Cyril Mougel)
+* Adding Slovenian sl-sl locale. (Miha Rebernik)
+* Added danish format (Jacob Kjeldahl)
+* translations for NL (Gert van der Spoel)
+* new color scheme 'green' (Gert van der Spoel)
+* Fixed missing translation in polish locales (Witold Rugowski)
+* Added a italian locale (Andrea Frigido)
+* fix time handling (Robert Brown)
+* Added a spanish locale on public/javascripts/calendar_date_select/locale/es.js (kikito)
+* Added description for iso date format (Lars E. Hoeg)
+* Added Danish (da) translation (Lars E. Hoeg)
+* Fixes issue with nil dates and trying to call type on them (Matt Haley)
+
+== Version 1.15.1
+ * Bugfix: iso_date fixes (Robert Brown)
+
 == Version 1.15
  * Bugfix: don't include the :image option in the input field
 

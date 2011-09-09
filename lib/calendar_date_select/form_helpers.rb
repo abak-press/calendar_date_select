@@ -86,7 +86,7 @@ module CalendarDateSelect::FormHelpers
   #     :before_close => "log('Calendar closing');" ,
   #     :after_close => "log('Calendar closed');",
   #     :after_navigate => "log('Current month is ' + (param.getMonth()+1) + '/' + (param.getFullYear()));",
-  #     :onchange => "log('value changed to - ' + $F(this));"
+  #     :onchange => "log('value changed to - ' + $F(this));" %>
   # 
   # }}}
   # 
@@ -116,7 +116,7 @@ module CalendarDateSelect::FormHelpers
     obj = options[:object] || instance_variable_get("@#{object}")
 
     if !options.include?(:time) && obj.class.respond_to?("columns_hash")
-      column_type = (obj.class.columns_hash[method.to_s].type rescue nil)
+      column_type = obj.class.columns_hash[method.to_s].type if obj.class.columns_hash.include?(method.to_s)
       options[:time] = true if column_type == :datetime
     end
 
@@ -136,7 +136,11 @@ module CalendarDateSelect::FormHelpers
       elsif obj.respond_to?(method)
         obj.send(method).to_s
       else
-        nil
+        begin
+          obj.send(method).strftime(CalendarDateSelect.date_format_string(use_time))
+        rescue
+          nil
+        end
       end
 
     tag = ActionView::Helpers::InstanceTag.new_with_backwards_compatibility(object, method, self, options.delete(:object))
@@ -154,8 +158,16 @@ module CalendarDateSelect::FormHelpers
       options, javascript_options = CalendarDateSelect.default_options.merge(options), {}
       image = options.delete(:image)
       callbacks = [:before_show, :before_close, :after_show, :after_close, :after_navigate]
-      for key in [:time, :valid_date_check, :embedded, :buttons, :clear_button, :format, :year_range, :month_year, :popup, :hidden, :minute_interval] + callbacks
+      for key in [:default_time, :time, :valid_date_check, :embedded, :buttons, :clear_button, :format, :year_range, :month_year, :popup, :hidden, :minute_interval] + callbacks
         javascript_options[key] = options.delete(key) if options.has_key?(key)
+      end
+
+      if (default_time = javascript_options[:default_time])
+        if default_time.respond_to?(:strftime)
+          javascript_options[:default_time] = "new Date('#{default_time.strftime(CalendarDateSelect.date_format_string(true))}')"
+        else 
+          javascript_options[:default_time] = "function() { return #{default_time} }"
+        end
       end
 
       # if passing in mixed, pad it with single quotes
