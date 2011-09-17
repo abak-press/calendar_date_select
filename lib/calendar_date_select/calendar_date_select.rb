@@ -102,6 +102,14 @@ module CalendarDateSelect
     @lib = v
   end
 
+  def self.jquery_noconflict
+    @jquery_noconflict ||= '$'
+  end
+
+  def self.jquery_noconflict=(v)
+    @jquery_noconflict = v
+  end
+
   def self.date_format_string(time = false)
     format[:date] + (time ? format[:time] : "")
   end
