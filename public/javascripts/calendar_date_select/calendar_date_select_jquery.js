@@ -259,7 +259,7 @@ var _translations = {
 		      this.month_select.val(m);
 		      
 		      var e = this.year_select;
-		      if (this.flexibleYearRange() && (!(e.val(y)) || e.attr('selectedIndex') <= 1 || e.attr('selectedIndex') >= e.attr('options').length - 2 )) this.populateYearRange();
+		      if (this.flexibleYearRange() && (!(e.val(y)) || e.attr('selectedIndex') <= 1 || e.attr('selectedIndex') >= e.find('option').length - 2 )) this.populateYearRange();
 		      
 		      e.val(y);
 		      
