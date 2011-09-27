@@ -12,9 +12,9 @@ var _translations = {
 
 (function($) {
 	nil = null;
-	function $R(f,t) { a = []; for (i=f; i<=t; i++) { a.push(i); }; 
+	function $R(f,t) { a = []; for (i=f; i<=t; i++) { a.push(i); }
 		a.start = this[0]; a.end = this[this.length-1];
-		a.include = function(needle) { return $.inArray(needle, this) != -1; }
+		a.include = function(needle) { return $.inArray(needle, this) != -1; };
 		a.select = function(x) { return $.grep(this, x) };
 		return a;
 	}
@@ -25,10 +25,10 @@ var _translations = {
 	Date.weekdays = $w("S M T W T F S");
 	Date.first_day_of_week = 0;
 	Date.months = $w("January February March April May June July August September October November December" );
-	Date.padded2 = function(hour) { var padded2 = parseInt(hour, 10); if (hour < 10) padded2 = "0" + padded2; return padded2; }
-	Date.prototype.getPaddedMinutes = function() { return Date.padded2(this.getMinutes()); }
-	Date.prototype.getAMPMHour = function() { var hour = this.getHours(); return (hour == 0) ? 12 : (hour > 12 ? hour - 12 : hour ) }
-	Date.prototype.getAMPM = function() { return (this.getHours() < 12) ? "AM" : "PM"; }
+	Date.padded2 = function(hour) { var padded2 = parseInt(hour, 10); if (hour < 10) padded2 = "0" + padded2; return padded2; };
+	Date.prototype.getPaddedMinutes = function() { return Date.padded2(this.getMinutes()); };
+	Date.prototype.getAMPMHour = function() { var hour = this.getHours(); return (hour == 0) ? 12 : (hour > 12 ? hour - 12 : hour ) };
+	Date.prototype.getAMPM = function() { return (this.getHours() < 12) ? "AM" : "PM"; };
 	Date.prototype.stripTime = function() { return new Date(this.getFullYear(), this.getMonth(), this.getDate());};
 	Date.prototype.daysDistance = function(compare_date) { return Math.round((compare_date - this) / Date.one_day); };
 	Date.prototype.toFormattedString = function(include_time){
@@ -37,19 +37,18 @@ var _translations = {
 		
 		if (include_time) { hour = this.getHours(); str += " " + this.getAMPMHour() + ":" + this.getPaddedMinutes() + " " + this.getAMPM() }
 		return str;
-	}
-	Date.parseFormattedString = function(string) { return new Date(string);}
-	Math.floor_to_interval = function(n, i) { return Math.floor(n/i) * i;}
+	};
+	Date.parseFormattedString = function(string) { return new Date(string);};
+	Math.floor_to_interval = function(n, i) { return Math.floor(n/i) * i;};
 	window.f_height = function() { return $(window).height() };
 	window.f_scrollTop = function() { return $(document).scrollTop() };
-	if (!Event.KEY_ESC) Event.KEY_ESC = 27;
-	
+
 	CalendarDateSelect = function(target_element, options) {
 		
 		this.target_element = $(target_element); // make sure it's an element, not a string
 		
 		if (!this.target_element) { alert("Target element " + target_element + " not found!"); return false;}
-		if (!this.target_element.is('input')) this.target_element = this.target_element.find("INPUT")
+		if (!this.target_element.is('input')) this.target_element = this.target_element.find("INPUT");
 		
 		this.target_element.calendar_date_select = this;
     	this.last_click_at = 0;
@@ -70,23 +69,23 @@ var _translations = {
 		}, (options||{})));
 		this.use_time = this.options.get("time");
 	    this.parseDate();
-	    this.callback("before_show")
+	    this.callback("before_show");
 		this.initCalendarDiv();
 		    if(!this.options.get("embedded")) {
-		    	this.positionCalendarDiv()
+		    	this.positionCalendarDiv();
 		    		    // set the click handler to check if a user has clicked away from the document
 		    cds = this;
 		    $(document).bind('mousedown.calendar_date_select', function(e) {
 			    if ( $(e.target).parents('.calendar_date_select').length == 0 ) cds.close(); 
-		    	}).bind('keypress.calendar_date_select', function(e) { if (e.keyCode==Event.KEY_ESC) cds.close(); } );
+		    	}).bind('keypress.calendar_date_select', function(e) { if (e.keyCode==27) cds.close(); } );
 		    }
 	    this.callback("after_show")
 	};
 	
 	CalendarDateSelect.instanceMethods = {
 	  positionCalendarDiv: function() {
-		gd = function() { return { width: this.outerWidth(), height: this.outerHeight() }; }
-		co = function() { p = this.offset(); return [p.left, p.top] }
+		gd = function() { return { width: this.outerWidth(), height: this.outerHeight() }; };
+		co = function() { p = this.offset(); return [p.left, p.top] };
 		this.calendar_div.getDimensions = gd;
 		this.calendar_div.cumulativeOffset = co;
 		var popup_by = this.options.get("popup_by");
@@ -94,7 +93,7 @@ var _translations = {
 		popup_by.cumulativeOffset = co;
 		
 	    var above = false;
-	    var c_pos = this.calendar_div.cumulativeOffset(), c_left = c_pos[0], c_top = c_pos[1], c_dim = this.calendar_div.getDimensions(), c_height = c_dim.height, c_width = c_dim.width;
+	    var c_dim = this.calendar_div.getDimensions(), c_height = c_dim.height;
 	    var w_top = window.f_scrollTop(), w_height = window.f_height();
 	    var e_dim = popup_by.cumulativeOffset(), e_top = e_dim[1], e_left = e_dim[0], e_height = popup_by.getDimensions().height, e_bottom = e_top + e_height;
 	    if ( (( e_bottom + c_height ) > (w_top + w_height)) && ( e_bottom - c_height > w_top )) above = true;
@@ -106,13 +105,14 @@ var _translations = {
 //	    if(navigator.appName=="Microsoft Internet Explorer") this.iframe = $(document.body).build("iframe", {src: "javascript:false", className: "ie6_blocker"}, { left: left_px, top: top_px, height: c_height.toString()+"px", width: c_width.toString()+"px", border: "0px"})
 	  },
 		initCalendarDiv: function() {
+      var parent, style;
 			
 			if (this.options.get("embedded")) {
-				var parent = this.target_element.parent();
-				var style = {}
+				parent = this.target_element.parent();
+				style = {}
 			} else {
-				var parent = document.body
-				var style = { position:"absolute", visibility: "hidden", left:0, top:0 }
+				parent = document.body;
+				style = { position:"absolute", visibility: "hidden", left:0, top:0 }
 			}
 			this.calendar_div = $('<div>').addClass("calendar_date_select").css(style).appendTo($(parent)).show();
 			
@@ -161,7 +161,7 @@ var _translations = {
 			
 			var days_tbody = $('<tbody>').appendTo(days_table);
 		    // Make the days!
-			var row_number=0
+			var row_number=0;
 			for(cell_index=0; cell_index<42; cell_index++)
 			{
 				weekday=(cell_index+Date.first_day_of_week ) % 7;
@@ -223,7 +223,7 @@ var _translations = {
 		    this.beginning_date = new Date(this.date).stripTime();
 		    this.beginning_date.setDate(1);
 		    this.beginning_date.setHours(12); // Prevent daylight savings time boundaries from showing a duplicate day
-		    var pre_days = this.beginning_date.getDay() // draw some days before the fact
+		    var pre_days = this.beginning_date.getDay(); // draw some days before the fact
 		    if (pre_days < 3) pre_days += 7;
 		    this.beginning_date.setDate(1 - pre_days + Date.first_day_of_week);
 		    
@@ -236,11 +236,11 @@ var _translations = {
 		    {
 		      day = iterator.getDate(); month = iterator.getMonth();
 		      cell = this.calendar_day_grid[cell_index].empty();
-		      div = $('<div>').html(day).appendTo(cell)
+		      div = $('<div>').html(day).appendTo(cell);
 		      if (month!=this_month) div.className = "other";
 		      xcell = cell.get(0);
 		      xcell.day = day; xcell.month = month; xcell.year = iterator.getFullYear();
-		      if (vdc) { if (vdc(iterator.stripTime())) cell.removeClass("disabled"); else cell.addClass("disabled") };
+		      if (vdc) { if (vdc(iterator.stripTime())) cell.removeClass("disabled"); else cell.addClass("disabled") }
 		      iterator.setDate( day + 1);
 		    }
 		    
@@ -291,7 +291,7 @@ var _translations = {
 		  clearSelectedClass: function() {if (this.selected_cell) this.selected_cell.removeClass("selected");},
 		  setSelectedClass: function() {
 		    if (!this.selection_made) return;
-		    this.clearSelectedClass()
+		    this.clearSelectedClass();
 		    if ($R(0,42).include( days_until = this.beginning_date.stripTime().daysDistance(this.selected_date.stripTime()) )) {
 		      this.selected_cell = this.calendar_day_grid[days_until].addClass("selected");
 		    }
@@ -302,7 +302,7 @@ var _translations = {
 		  },
 		  parseDate: function()
 		  {
-		    var value = $.trim(this.target_element.val())
+		    var value = $.trim(this.target_element.val());
 		    this.selection_made = (value != "");
 		    this.date = value=="" ? NaN : Date.parseFormattedString(this.options.get("date") || value);
 		    if (isNaN(this.date)) this.date = new Date();
@@ -355,7 +355,7 @@ var _translations = {
 		  closeOnClick: function() {
 		    if (this.options.get("embedded")) return false;
 		    if (this.options.get("close_on_click")===nil )
-		      return (this.options.get("time")) ? false : true
+		      return !(this.options.get("time"));
 		    else
 		      return (this.options.get("close_on_click"))
 		  },
@@ -370,7 +370,7 @@ var _translations = {
 		    return true;
 		  },
 		  setUseTime: function(turn_on) {
-		    this.use_time = this.options.get("time") && (this.options.get("time")=="mixed" ? turn_on : true) // force use_time to true if time==true && time!="mixed"
+		    this.use_time = this.options.get("time") && (this.options.get("time")=="mixed" ? turn_on : true); // force use_time to true if time==true && time!="mixed"
 		    if (this.use_time && this.selected_date) { // only set hour/minute if a date is already selected
 		      var minute = Math.floor_to_interval(this.selected_date.getMinutes(), this.options.get("minute_interval"));
 		      var hour = this.selected_date.getHours();
@@ -404,7 +404,7 @@ var _translations = {
 		    this.callback("after_close");
 		  },
 		  callback: function(name, param) { if (this.options.get(name)) { this.options.get(name).apply(this.target_element, param); } }
-	}
+	};
 	
 	$.extend(CalendarDateSelect.prototype, CalendarDateSelect.instanceMethods);
-}(jQuery))
+}(jQuery));
